@@ -14,7 +14,7 @@ The design can be shown at a high level as:
 ![BreezeVM High-Level Design Image, showing the user input flowing into the Files Loader, then the Assembler, and either ending at the errors or creating a .bbc file, while for the VM it is the file input (a .bbc file) into the Loader, Foreign Code Loader, and finally the Interpreter, then ending at either the error handler or interpreting to completion.](BVM-Logical-Solution-Design.png)
 
 ### VM Overall Design
-![BreezeVM showing the process, which starts at reading a .bbc file, converting the header into a readable format, pushing read-only data into the data segment, creating the stack, loading any foreign code libraries, then executing the bytecode.]('BVM.png')
+![BreezeVM showing the process, which starts at reading a .bbc file, converting the header into a readable format, pushing read-only data into the data segment, creating the stack, loading any foreign code libraries, then executing the bytecode.](BVM.png)
 
 ### Stack
 The VM currently has a hard-coded stack size of 2KB (42 values). In a full release, this would be definable, or definable in the program itself.
