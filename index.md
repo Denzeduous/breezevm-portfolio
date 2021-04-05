@@ -23,19 +23,43 @@ Building BreezeVM requires a program that can operate on `Makefile`s. These incl
 
 There is a `Makefile` in the root directory of the project. All `make`/`nmake` commands must be ran in the root of the repository.
 
-* To update the repo, simply type "`make update-breeze`", which is just "`git pull`" under the hood.<br />Output, if up to date, should look like:<br />```
+* To update the repo, simply type "`make update-breeze`", which is just "`git pull`" under the hood.<br />Output, if up to date, should look like:
+
+```
 git pull
-Already up to date.```
+Already up to date.
+```
 
-* To update the `lib` (currently unused, but may be used in the future), run "`make update-lib`".<br />Output should look like:<br />```find bin/* -not -name '.gitkeep' -delete
-Binary directory has been cleaned.```
+* To update the `lib` (currently unused, but may be used in the future), run "`make update-lib`".<br />Output should look like:
 
-* To build the assembler, run "`make assembler`". The assembler will then be created in the `bin` directory.<br />Output should look like:<br />```odin build Source/Assembler -out=bin/bvmasm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler```<br />Then, a `bvmasm` binary file should be created in the `bin` directory.
+```
+find bin/* -not -name '.gitkeep' -delete
+Binary directory has been cleaned.
+```
 
-* To build the VM, run "`make vm`". The VM will then be created in the `bin` directory.<br />Output should look like:<br />```odin build Source/BreezeVM -out=bin/bvm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler```<br />Then, a `bvm` binary file should be created in the `bin` directory.
+* To build the assembler, run "`make assembler`". The assembler will then be created in the `bin` directory.<br />Output should look like:<br />
 
-* To clean up the binary directory, run "`make clean`".<br />Output should look like:<br />```find bin/* -not -name '.gitkeep' -delete
-Binary directory has been cleaned.```<br />Then, the `bin` directory should be emptied except for the `.gitignore` file.
+```
+odin build Source/Assembler -out=bin/bvmasm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler
+```
+
+    Then, a `bvmasm` binary file should be created in the `bin` directory.
+
+* To build the VM, run "`make vm`". The VM will then be created in the `bin` directory.<br />Output should look like:
+
+```
+odin build Source/BreezeVM -out=bin/bvm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler
+```
+
+    Then, a `bvm` binary file should be created in the `bin` directory.
+
+* To clean up the binary directory, run "`make clean`".<br />Output should look like:
+```
+find bin/* -not -name '.gitkeep' -delete
+Binary directory has been cleaned.
+```
+
+Then, the `bin` directory should be emptied except for the `.gitignore` file.
 
 ### How to Use BVMAsm
 In order to assemble a [BVMAsm](#what-is-breezevm) file, one first needs to create a file titled "`[name].bvmasm`" (where "`[name]`" can be any name wanted) with valid BVMAsm in it, then call the assembler (`bvmasm`) on the file(s). If there are any errors, it will let you know, but if there are none, a `program.bbc` file will be created.
@@ -46,6 +70,12 @@ Example of use:
 Completed binary in 0.232ms.
 ```
 (Time may differ based on outside factors)
+
+Then, running "`ls`" reveals that a `program.bbc` file has been created, which can later be used by `bvm` for interpretation:
+```
+> ls
+hello-world.bvmasm  program.bbc
+```
 
 ### How to Use BVM
 In order to interpret a [.bbc](#what-is-breezevm) file, you must call the VM (`bvm`) on the file. From there, the VM will attempt to load then de-serialize the file passed. If it does not find the file, or the serialization is invalid, the VM will halt and error out. If there are any errors during interpretation, the VM will error out and halt.
