@@ -19,7 +19,7 @@ Please click [here](https://github.com/F0x1fy/BreezeVM/archive/refs/heads/master
 
 ## BreezeVM User and System Administrator Guide
 ### How to Build BreezeVM
-Building BreezeVM requires a program that can operate on `Makefile`s, as well as the [Odin](http://odin-lang.org/) compiler. The recommended program is [make](https://www.gnu.org/software/make/) on Linux. Note that these makefiles require Linux, though the commands within them (with the exclusion of "`find`") can be ran manually on Windows.
+Building BreezeVM requires a program that can operate on `Makefile`s, as well as the [Odin](http://odin-lang.org/) compiler. The recommended program is [make](https://www.gnu.org/software/make/) on Linux. Note that these make commands require Linux, though the commands within them (with the exclusion of "`find`") can be ran manually on Windows, given that the [Odin](http://odin-lang.org/) compiler is installed.
 
 There is a `Makefile` in the root directory of the project. All `make`/`nmake` commands must be ran in the root of the repository.
 
