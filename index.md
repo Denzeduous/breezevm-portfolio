@@ -2,9 +2,6 @@
 
 <div class="github-card" data-github="F0x1fy/BreezeVM" data-width="400" data-height="" data-theme="default"></div>
 
-<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js" type="text/javascript">
-</script>
-
 ## What is BreezeVM?
 The Breeze Virtual Machine (BreezeVM or BVM) is a process virtual machine for a custom bytecode and instruction set (BVMAsm), similar to the Java Virtual Machine (JVM). BreezeVM's bytecode (Breeze Bytecode, or BBC) is type-agnostic to natively support dynamically-typed languages.
 
@@ -318,3 +315,6 @@ Sadly, since BreezeVM had to be designed implemented in a month, there are quite
 
 # Resume
 My resume can be found [here](https://drive.google.com/file/d/1GbA9oRvg4sOwoaVVdHd96GlGLH43r4VZ/view?usp=sharing).
+
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js" type="text/javascript">
+</script>
