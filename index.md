@@ -2,7 +2,7 @@
 
 <div class="github-card" data-github="F0x1fy/BreezeVM" data-width="400" data-height="" data-theme="default"></div>
 
-<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js">
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js" type="text/javascript">
 </script>
 
 ## What is BreezeVM?
