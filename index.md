@@ -6,8 +6,61 @@ The Breeze Virtual Machine (BreezeVM or BVM) is a process virtual machine for a 
 
 Due to a compiler bug in Odin that invalidated the previous project, this project was quickly designed and developed in a month to meet the capstone's due date. Due to this, tests are severely lacking, as well as the implemented instructions.
 
+To view BreezeVM's design and skip the user guide, please click on this link to go to [BreezeVM's Design](#breezevms-design).
+
+## How to Download BreezeVM
+There are two ways to download BreezeVM: through `git` and through a `.zip` file.
+
+### Through Git
+To download BreezeVM through `git`, make sure you have [git](https://git-scm.com/) installed, then head to a directory where you wish to clone BreezeVM, then simply type "`git clone https://github.com/F0x1fy/BreezeVM.git`". This will then download the repository in a "`BreezeVM`" subdirectory.
+
+### Through a ZIP File
+Please click [here](https://github.com/F0x1fy/BreezeVM/archive/refs/heads/master.zip) to download the `ZIP` file.
+
+## BreezeVM User and System Administrator Guide
+### How to Build BreezeVM
+Building BreezeVM requires a program that can operate on `Makefile`s. These include, but are not limited to, [make](https://www.gnu.org/software/make/) on Linux and [nmake](https://docs.microsoft.com/en-us/cpp/build/reference/nmake-reference?view=msvc-160) on Windows.
+
+There is a `Makefile` in the root directory of the project. All `make`/`nmake` commands must be ran in the root of the repository.
+
+* To update the repo, simply type "`make update-breeze`", which is just "`git pull`" under the hood.<br />Output, if up to date, should look like:<br />```
+git pull
+Already up to date.```
+
+* To update the `lib` (currently unused, but may be used in the future), run "`make update-lib`".<br />Output should look like:<br />```find bin/* -not -name '.gitkeep' -delete
+Binary directory has been cleaned.```
+
+* To build the assembler, run "`make assembler`". The assembler will then be created in the `bin` directory.<br />Output should look like:<br />```odin build Source/Assembler -out=bin/bvmasm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler```<br />Then, a `bvmasm` binary file should be created in the `bin` directory.
+
+* To build the VM, run "`make vm`". The VM will then be created in the `bin` directory.<br />Output should look like:<br />```odin build Source/BreezeVM -out=bin/bvm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler```<br />Then, a `bvm` binary file should be created in the `bin` directory.
+
+* To clean up the binary directory, run "`make clean`".<br />Output should look like:<br />```find bin/* -not -name '.gitkeep' -delete
+Binary directory has been cleaned.```<br />Then, the `bin` directory should be emptied except for the `.gitignore` file.
+
+### How to Use BVMAsm
+In order to assemble a [BVMAsm](#what-is-breezevm) file, one first needs to create a file titled "`[name].bvmasm`" (where "`[name]`" can be any name wanted) with valid BVMAsm in it, then call the assembler (`bvmasm`) on the file(s). If there are any errors, it will let you know, but if there are none, a `program.bbc` file will be created.
+
+Example of use:
+```
+> bvmasm hello-world.bvmasm
+Completed binary in 0.232ms.
+```
+(Time may differ based on outside factors)
+
+### How to Use BVM
+In order to interpret a [.bbc](#what-is-breezevm) file, you must call the VM (`bvm`) on the file. From there, the VM will attempt to load then de-serialize the file passed. If it does not find the file, or the serialization is invalid, the VM will halt and error out. If there are any errors during interpretation, the VM will error out and halt.
+
+Example of use:
+```
+> bvm program.bbc
+Hello, World!
+```
+
+### BVM For Administrators
+BVM currently requires no configuration, and will be standard across all builds. There is no hosting or anything similar required to use BreezeVM. `bvmasm` and `bvm` must simply be installed on any computer that needs to use it using the instructions given in [How to Build BreezeVM](#how-to-build-breezevm). BVM, unless intrinsic procedures are added and used that can access outside resources such as the file system and the internet, is entirely isolated and does not pose any inherit security risks that have to be accounted for.
+
 ## BreezeVM's Design
-Breeze is broken up into two portions, the assembler (bvmasm) and the VM (bvm). The assembler handles turning {`.bvmasm`} files into {`.bbc`} files, then the VM reads said {`.bbc`} files and operates on them. Disregarding endianness, {`.bbc`} files are entirely platform-independent. A {`.bbc`} file could be compiled on Windows and run just the same on Mac, Linux/GNU, or any other operating system.
+Breeze is broken up into two portions, the assembler (bvmasm) and the VM (bvm). The assembler handles turning `.bvmasm` files into `.bbc` files, then the VM reads said `.bbc` files and operates on them. Disregarding endianness, `.bbc` files are entirely platform-independent. A `.bbc` file could be compiled on Windows and run just the same on Mac, Linux/GNU, or any other operating system.
 
 The design can be shown at a high level as:
 
@@ -20,13 +73,13 @@ The design can be shown at a high level as:
 The VM currently has a hard-coded stack size of 2KB (42 values). In a full release, this would be definable, or definable in the program itself.
 
 ### Data Values
-The VM can contain any number of constant, read-only data. These are accessible through data offsets using the {`CONST`-related instructions.
+The VM can contain any number of constant, read-only data. These are accessible through data offsets using the `CONST`-related instructions.
 
 ### Prepared Values
 Instead of a set number of registers, BVM uses "prepared" values. The {`PREPARE`} instructions allow the program to push to the prepared values. Prepared values are used to pass values to some instructions and to procedures.
 
 ### Intrinsic Procedures
-Intrinsic procedures are defined in the virtual machine and are accessible in BVMAsm through the {`CALL`} instruction, followed by the procedure used in the jump table. Currently, there is only one intrinsic procedure, which prints out prepared values to {`stdout`} and is used for both the Fibonacci test as well as the Hello World test.
+Intrinsic procedures are defined in the virtual machine and are accessible in BVMAsm through the {`CALL`} instruction, followed by the procedure used in the jump table. Currently, there is only one intrinsic procedure, which prints out prepared values to `stdout` and is used for both the Fibonacci test as well as the Hello World test.
 
 ### Scopes
 Scopes are self-isolated chunks of code. The only way scopes interact is through pulling arguments from the parent scope. A child scope cannot access the stack of a parent scope.
@@ -35,7 +88,7 @@ Scopes are self-isolated chunks of code. The only way scopes interact is through
 Blocks are sub-sections of code within scopes. They can use the stack values of its parent scope and blocks. A block stores prepared values, so a block must be defined within a scope in order to use prepared values. Blocks also make managing prepared values within self-contained sections of code in a stack incredibly easy, removing the need to pull prepared values often.
 
 ## Breeze Bytecode Files
-Breeze Bytecode files (`.bbc`} files) have a custom format to make serializing and deserializing simple and efficient. These files are broken into two parts: The header section, and the bytecode section.
+Breeze Bytecode files (`.bbc` files) have a custom format to make serializing and deserializing simple and efficient. These files are broken into two parts: The header section, and the bytecode section.
 
 ### BBC Header
 A Breeze Bytecode header is broken up into several parts, some of variable length, and some of fixed length.
@@ -301,28 +354,6 @@ Sadly, since BreezeVM had to be designed implemented in a month, there are quite
 * No importing shared libraries or other BVMAsm code (the latter is implemented, but entirely untested)
 
 * Does not account for endianness
-
-## How to Build BreezeVM
-There is a `Makefile` in the root directory of the project.
-
-* To update the repo, simply type `make update-breeze`, which is just `git pull` under the hood.
-
-* To update the `lib` (currently unused, but may be used in the future), run `make update-lib`.
-
-* To build the assembler, run `make assembler`. The assembler will then be created in the `bin` directory.
-
-* To build the VM, run `make vm`. The VM will then be created in the `bin` directory.
-
-* To clean up the binary directory, run `make clean`.
-
-## How to Use BVMAsm
-In order to assemble a BVMAsm file, one first needs to create a file titled `[name].bvmasm` with BVM assembly in it, then call the assembler (`bvmasm`) on the file(s). If there are any errors, it will let you know, but if there are none, a `program.bbc` file will be created.
-
-## How to Use BVM
-In order to interpret a `.bbc` file, you must call the VM (`bvm`) on the file. From there, the VM will attempt to load then de-serialize the file passed. If it does not find the file, or the serialization is invalid, the VM will halt and error out. If there are any errors during interpretation, the VM will error out and halt.
-
-## BVM For Administrators
-BVM currently requires no configuration, and will be standard across all builds. There is no hosting or anything similar required to use BreezeVM. `bvmasm` and `bvm` must simply be installed on any computer that needs to use it. BVM, unless intrinsic procedures are added and used that can access outside resources such as the file system and the internet, is entirely isolated and does not pose any inherit security risks that have to be accounted for.
 
 # Other Projects I've Worked On
 | Name              | Description                                                                                                                                                                                                                                                        | Technologies                                   | GitHub                                                                         |
