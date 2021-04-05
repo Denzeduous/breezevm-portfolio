@@ -1,13 +1,10 @@
 # BreezeVM Portfolio
-
-<div class="github-card" data-github="F0x1fy/BreezeVM" data-width="400" data-height="" data-theme="default"></div>
+GitHub repo can be found [here](https://github.com/F0x1fy/BreezeVM).
 
 ## What is BreezeVM?
 The Breeze Virtual Machine (BreezeVM or BVM) is a process virtual machine for a custom bytecode and instruction set (BVMAsm), similar to the Java Virtual Machine (JVM). BreezeVM's bytecode (Breeze Bytecode, or BBC) is type-agnostic to natively support dynamically-typed languages.
 
 Due to a compiler bug in Odin that invalidated the previous project, this project was quickly designed and developed in a month to meet the capstone's due date. Due to this, tests are severely lacking, as well as the implemented instructions.
-
-GitHub repo can be found [here](https://github.com/F0x1fy/BreezeVM).
 
 ## BreezeVM's Design
 Breeze is broken up into two portions, the assembler (bvmasm) and the VM (bvm). The assembler handles turning `.bvmasm` files into `.bbc` files, then the VM reads said `.bbc` files and operates on them. Disregarding endianness, `.bbc` files are entirely platform-independent. A `.bbc` file could be compiled on Windows and run just the same on Mac, Linux/GNU, or any other operating system.
@@ -315,6 +312,3 @@ Sadly, since BreezeVM had to be designed implemented in a month, there are quite
 
 # Resume
 My resume can be found [here](https://drive.google.com/file/d/1GbA9oRvg4sOwoaVVdHd96GlGLH43r4VZ/view?usp=sharing).
-
-<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js" type="text/javascript">
-</script>
