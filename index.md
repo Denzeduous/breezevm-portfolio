@@ -43,7 +43,7 @@ Binary directory has been cleaned.
 odin build Source/Assembler -out=bin/bvmasm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler
 ```
 
-    Then, a `bvmasm` binary file should be created in the `bin` directory.
+Then, a `bvmasm` binary file should be created in the `bin` directory.
 
 * To build the VM, run "`make vm`". The VM will then be created in the `bin` directory.<br />Output should look like:
 
@@ -51,7 +51,7 @@ odin build Source/Assembler -out=bin/bvmasm -collection:breeze=Source/BreezeVM -
 odin build Source/BreezeVM -out=bin/bvm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler
 ```
 
-    Then, a `bvm` binary file should be created in the `bin` directory.
+Then, a `bvm` binary file should be created in the `bin` directory.
 
 * To clean up the binary directory, run "`make clean`".<br />Output should look like:
 ```
