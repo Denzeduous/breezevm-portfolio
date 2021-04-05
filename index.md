@@ -321,6 +321,9 @@ In order to assemble a BVMAsm file, one first needs to create a file titled `[na
 ## How to Use BVM
 In order to interpret a `.bbc` file, you must call the VM (`bvm`) on the file. From there, the VM will attempt to load then de-serialize the file passed. If it does not find the file, or the serialization is invalid, the VM will halt and error out. If there are any errors during interpretation, the VM will error out and halt.
 
+## BVM For Administrators
+BVM currently requires no configuration, and will be standard across all builds. There is no hosting or anything similar required to use BreezeVM. `bvmasm` and `bvm` must simply be installed on any computer that needs to use it. BVM, unless intrinsic procedures are added and used that can access outside resources such as the file system and the internet, is entirely isolated and does not pose any inherit security risks that have to be accounted for.
+
 # Other Projects I've Worked On
 | Name              | Description                                                                                                                                                                                                                                                        | Technologies                                   | GitHub                                                                         |
 |-------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|--------------------------------------------------------------------------------|
