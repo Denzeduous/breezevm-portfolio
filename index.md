@@ -12,7 +12,7 @@ To view BreezeVM's design and skip the user guide, please click on this link to 
 There are two ways to download BreezeVM: through `git` and through a `.zip` file.
 
 ### Through Git
-To download BreezeVM through `git`, make sure you have [git](https://git-scm.com/) installed, then head to a directory where you wish to clone BreezeVM, then simply type "`git clone https://github.com/F0x1fy/BreezeVM.git`". This will then download the repository in a "`BreezeVM`" subdirectory.
+To download BreezeVM through `git`, make sure to have [git](https://git-scm.com/) installed, then head to a directory where to clone BreezeVM (can be anywhere), then simply type "`git clone https://github.com/F0x1fy/BreezeVM.git`". This will then download the repository in a "`BreezeVM`" subdirectory.
 
 ### Through a ZIP File
 Please click [here](https://github.com/F0x1fy/BreezeVM/archive/refs/heads/master.zip) to download the `ZIP` file.
@@ -21,48 +21,53 @@ Please click [here](https://github.com/F0x1fy/BreezeVM/archive/refs/heads/master
 ### How to Build BreezeVM
 Building BreezeVM requires a program that can operate on `Makefile`s, as well as the [Odin](http://odin-lang.org/) compiler. The recommended program is [make](https://www.gnu.org/software/make/) on Linux. Note that these make commands require Linux, though the commands within them (with the exclusion of "`find`") can be ran manually on Windows, given that the [Odin](http://odin-lang.org/) compiler is installed.
 
-There is a `Makefile` in the root directory of the project. All `make`/`nmake` commands must be ran in the root of the repository.
+There is a `Makefile` in the root directory of the project. All `make` commands must be ran in the root of the repository.
 
-* To update the repo, simply type "`make update-breeze`", which is just "`git pull`" under the hood. This requires [git](https://git-scm.com/).<br />Output, if up to date, should look like:
+* To update the repo, simply type "`make update-breeze`", which is just "`git pull`" under the hood. This requires [git](https://git-scm.com/).
 
 ```
+> make update-breeze
 git pull
 Already up to date.
 ```
 
-* To update the `lib` (currently unused, but may be used in the future), run "`make update-lib`".<br />Output should look like:
+* To update the `lib` (currently unused, but may be used in the future), run "`make update-lib`".
 
 ```
+> make update-lib
 find bin/* -not -name '.gitkeep' -delete
 Binary directory has been cleaned.
 ```
 
-* To build the assembler, run "`make assembler`". The assembler will then be created in the `bin` directory.<br />Output should look like:<br />
+* To build the assembler, run "`make assembler`". The assembler will then be created in the `bin` directory.
 
 ```
+> make assembler
 odin build Source/Assembler -out=bin/bvmasm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler
 ```
 
-Then, a `bvmasm` binary file should be created in the `bin` directory.
+Then, a `bvmasm` binary file will be created in the `bin` directory.
 
 * To build the VM, run "`make vm`". The VM will then be created in the `bin` directory.<br />Output should look like:
 
 ```
+> make vm
 odin build Source/BreezeVM -out=bin/bvm -collection:breeze=Source/BreezeVM -collection:assembler=Source/Assembler
 ```
 
-Then, a `bvm` binary file should be created in the `bin` directory.
+Then, a `bvm` binary file will be created in the `bin` directory.
 
 * To clean up the binary directory, run "`make clean`".<br />Output should look like:
 ```
+> make clean
 find bin/* -not -name '.gitkeep' -delete
 Binary directory has been cleaned.
 ```
 
-Then, the `bin` directory should be emptied except for the `.gitignore` file.
+Then, the `bin` directory will be emptied except for the `.gitignore` file.
 
 ### How to Use BVMAsm
-In order to assemble a [BVMAsm](#what-is-breezevm) file, one first needs to create a file titled "`[name].bvmasm`" (where "`[name]`" can be any name wanted) with valid BVMAsm in it, then call the assembler (`bvmasm`) on the file(s). If there are any errors, it will let you know, but if there are none, a `program.bbc` file will be created.
+In order to assemble a [BVMAsm](#what-is-breezevm) file, first create a file titled "`[name].bvmasm`" (where "`[name]`" can be any name wanted) with valid BVMAsm in it, then call the assembler (`bvmasm`) on the file(s). A `program.bbc` file will be created if there are no errors. Any errors will be printed out before the program halts.
 
 Example of use:
 ```
@@ -78,7 +83,7 @@ hello-world.bvmasm  program.bbc
 ```
 
 ### How to Use BVM
-In order to interpret a [.bbc](#what-is-breezevm) file, you must call the VM (`bvm`) on the file. From there, the VM will attempt to load then de-serialize the file passed. If it does not find the file, or the serialization is invalid, the VM will halt and error out. If there are any errors during interpretation, the VM will error out and halt.
+In order to interpret a [.bbc](#what-is-breezevm) file, call the VM (`bvm`) on the file. From there, the VM will attempt to load then de-serialize the file passed. If it does not find the file, or the serialization is invalid, the VM will halt and error out. If there are any errors during interpretation, the VM will error out and halt.
 
 Example of use:
 ```
@@ -255,7 +260,7 @@ These instructions take two 64-bit parameters.
 * LESSER_EQ_O {`LESSER_EQ <u64>[STACK_OFFSET] <u64>[STACK_OFFSET]`} (Checks to see if the first value is less than or equal to the second value)
 
 ## Examples
-These examples use a reproducable Docker environment for testing. To run an example, simply navigate to {`Test`} and choose which directory you wish to test, then make sure to build the Docker environment with {`make build`, then in {`Test/Assembler`, run {`make run`} to run, and for {`Test/VM`, you have the option of {`make hello-world`} for Hello World and {`make fibonacci`} for the Fibonacci sequence.
+These examples use a reproducable Docker environment for testing. To run an example, simply navigate to {`Test`} and choose which directory to test, then make sure to build the Docker environment with {`make build`, then in {`Test/Assembler`, run {`make run`} to run, and for {`Test/VM`, the options are {`make hello-world`} for Hello World and {`make fibonacci`} for the Fibonacci sequence.
 
 Here are two examples of Breeze working in its entirety with its current functionality:
 
